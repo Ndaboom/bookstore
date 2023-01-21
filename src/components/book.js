@@ -12,7 +12,13 @@ class Book extends Component {
   render() {
     return (
       <div className="container">
-        { this.props.book.name }
+        <p>
+          { this.props.book.name }
+          &nbsp;-&nbsp;
+          { this.props.book.author }
+          &nbsp;
+          <button type="button">Remove</button>
+        </p>
       </div>
     );
   }

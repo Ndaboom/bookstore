@@ -9,12 +9,14 @@ class BooksList extends React.Component {
       {
         id: 1,
         name: 'The Hunger Games',
+        author: 'Sammy Ndabo',
         progression: 60,
         chapter: 20,
       },
       {
         id: 2,
         name: 'Dune',
+        author: 'Marc Dubois',
         progression: 60,
         chapter: 20,
       },
