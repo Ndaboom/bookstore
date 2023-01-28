@@ -1,13 +1,19 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-this-in-sfc */
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkStatus } from '../redux/categories/categories';
 
-function Category(props) {
+function Category() {
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.categories);
+
+  const handleStatusClick = () => {
+    dispatch(checkStatus());
+  };
+
   return (
     <div className="container">
-      {props.category.name}
-      <input type="checkbox" />
+      {status}
+      <input type="checkbox" onClick={handleStatusClick} />
     </div>
   );
 }
