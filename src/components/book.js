@@ -1,27 +1,34 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
-/* eslint-disable no-useless-constructor */
-import React, { Component } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { removeBook } from '../redux/books/books';
 
-class Book extends Component {
-  constructor(props) {
-    super(props);
-  }
+function Book(props) {
+  const dispatch = useDispatch();
+  const { id, title, author } = props;
+  const handleRemoveClick = (id) => {
+    dispatch(removeBook(id));
+  };
 
-  render() {
-    return (
-      <div className="container">
-        <p>
-          { this.props.book.name }
+  return (
+    <div className="container">
+      <p>
+        { title }
           &nbsp;-&nbsp;
-          { this.props.book.author }
+        { author }
           &nbsp;
-          <button type="button">Remove</button>
-        </p>
-      </div>
-    );
-  }
+        <button type="button" onClick={() => handleRemoveClick(id)}>Remove</button>
+      </p>
+    </div>
+  );
 }
+
+Book.propTypes = {
+  title: PropTypes.string,
+  author: PropTypes.string,
+  id: PropTypes.string,
+}.isRequired;
 
 export default Book;
