@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../redux/books/books';
+/* eslint-disable quotes */
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import { addBook } from "../redux/books/books";
 
 function InputBook() {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
   const dispatch = useDispatch();
+  let books = useSelector((state) => state.book);
 
   const handleAuthor = (e) => {
     setAuthor(e.target.value);
   };
 
-  const handleTitle = (e) => {
-    setTitle(e.target.value);
+  const handleName = (e) => {
+    setName(e.target.value);
   };
 
   const handleAddbook = (e) => {
@@ -21,38 +24,46 @@ function InputBook() {
 
     const newBook = {
       id: uuidv4(),
-      title,
+      name,
       author,
     };
 
     dispatch(addBook(newBook));
-    setTitle('');
-    setAuthor('');
+    // books.push(newBook);
+    setName("");
+    setAuthor("");
+
+    console.log(books);
   };
   return (
-    <form className="form-container">
-      <input
-        type="text"
-        className="input-text"
-        placeholder="Add todo..."
-        id="title"
-        name="title"
-        value={title}
-        onChange={handleTitle}
-      />
-      <input
-        type="text"
-        className="input-text"
-        placeholder="Author"
-        id="author"
-        name="author"
-        value={author}
-        onChange={handleAuthor}
-      />
-      <button type="submit" onClick={handleAddbook}>
-        Add new
-      </button>
-    </form>
+    <div className="add_book">
+      <h2>ADD NEW BOOK</h2>
+      <div>
+        <form onSubmit={handleAddbook}>
+          <input
+            className="titleInp"
+            type="text"
+            name="name"
+            placeholder="Add Name"
+            required
+            value={name}
+            onChange={handleName}
+          />
+          <input
+            className="authorInp"
+            type="text"
+            name="author"
+            placeholder="Add Author"
+            required
+            value={author}
+            onChange={handleAuthor}
+          />
+          <button type="submit" className="addBookBtn">
+            ADD BOOK
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 export default InputBook;

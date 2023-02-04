@@ -1,21 +1,22 @@
-import { v4 as uuidv4 } from 'uuid';
+/* eslint-disable quotes */
+// import { v4 as uuidv4 } from 'uuid';
 
 // ACTIONS
-const ADDBOOK = 'bookstore/books/ADDBOOK';
-const REMOVEBOOK = 'bookstore/books/REMOVEBOOK';
+const ADDBOOK = "bookstore/books/ADDBOOK";
+const REMOVEBOOK = "bookstore/books/REMOVEBOOK";
 
-const initState = [
+export const initState = [
   {
     id: 1,
-    name: 'The Hunger Games',
-    author: 'Sammy Ndabo',
+    name: "The Hunger Games",
+    author: "Sammy Ndabo",
     progression: 60,
     chapter: 20,
   },
   {
     id: 2,
-    name: 'Dune',
-    author: 'Marc Dubois',
+    name: "Dune",
+    author: "Marc Dubois",
     progression: 60,
     chapter: 20,
   },
@@ -24,9 +25,9 @@ const initState = [
 // REDUCER
 const booksReducer = (state = initState, action = {}) => {
   switch (action.type) {
-    case 'ADDBOOK':
-      return state.push(action.book);
-    case 'REMOVEBOOK':
+    case ADDBOOK:
+      return { ...state.push(action.payload), ...action.payload };
+    case "REMOVEBOOK":
       return state.books.filter((book) => book.id !== action.id);
     default:
       return state;
@@ -37,8 +38,7 @@ const booksReducer = (state = initState, action = {}) => {
 export const addBook = (book) => ({
   type: ADDBOOK,
   payload: {
-    id: uuidv4(),
-    title: book.title,
+    name: book.name,
     author: book.author,
   },
 });
